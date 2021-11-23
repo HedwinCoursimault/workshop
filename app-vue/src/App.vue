@@ -1,5 +1,13 @@
 <template>
-  <ListGroup />
+  <div id="div-main" class="d-flex">
+    <div id="div-nav" class="col-3">
+      <p class="text-center">Vos fichiers sauvegardés</p>
+      <ListGroup />
+    </div>
+    <div class="w-100">
+      <Upload />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,11 +16,13 @@ import { mapActions } from "vuex";
 import { Constants } from "@/constants/Constants";
 import FilesActionTypes from "@/store/files/files-action-types";
 import ListGroup from "@/components/ListGroup.vue";
+import Upload from "@/components/Upload.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     ListGroup,
+    Upload,
   },
   async mounted() {
     await this[FilesActionTypes.GET_LIST_NAMES]();
@@ -22,3 +32,15 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+#div-nav {
+  border-right-style: solid;
+  border-right-width: 1px;
+  height: 100%;
+}
+
+#div-main {
+  height: 100%;
+  width: 100%;
+}
+</style>
