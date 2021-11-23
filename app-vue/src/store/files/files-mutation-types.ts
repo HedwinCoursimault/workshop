@@ -1,5 +1,5 @@
-enum FilesMutationTypes{
-    UPDATE_FILES_NAMES = "UPDATE_FILES_NAMES"
+enum FilesMutationTypes {
+  UPDATE_FILES_NAMES = "UPDATE_FILES_NAMES",
 }
 
 export default FilesMutationTypes;
