@@ -5,4 +5,6 @@ export class Constants {
   static readonly DOWNLOAD = "";
   static readonly UPLOAD = "";
   static readonly REMOVE = "";
+  static readonly CONNECTION = "";
+  static readonly AUTH_STORE = "auth";
 }

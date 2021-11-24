@@ -1,0 +1,25 @@
+[package]
+name = "crypted-drive"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.14", features = ["fs", "rt-multi-thread", "macros"] }
+warp = "0.3.2"
+uuid = { version = "0.8", features = ["v4", "serde"] }
+bytes = "1.0"
+futures = { version = "0.3", default-features = false }
+sqlx = { version = "0.5.9", features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "chrono",
+    "uuid",
+    "offline",
+] }
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = "1.0"
+serde_json = "1.0"
+thiserror = "1.0"
+dotenv = "0.15"

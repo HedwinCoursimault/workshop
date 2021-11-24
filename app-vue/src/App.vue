@@ -1,5 +1,5 @@
 <template>
-  <div id="div-main" class="d-flex">
+  <div  v-if="isConnected" id="div-main" class="d-flex">
     <div id="div-nav" class="col-3">
       <p class="text-center">Vos fichiers sauvegardés</p>
       <ListGroup />
@@ -8,28 +8,37 @@
       <Upload />
     </div>
   </div>
+  <div v-else>
+    <Login/>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "vuex";
+import {mapActions, mapState} from "vuex";
 import { Constants } from "@/constants/Constants";
 import FilesActionTypes from "@/store/files/files-action-types";
 import ListGroup from "@/components/ListGroup.vue";
 import Upload from "@/components/Upload.vue";
+import Login from "@/components/Login.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     ListGroup,
     Upload,
+    Login
   },
   async mounted() {
     await this[FilesActionTypes.GET_LIST_NAMES]();
+    console.log(this.isConnected);
   },
   methods: {
     ...mapActions(Constants.FILES_STORE, [FilesActionTypes.GET_LIST_NAMES]),
   },
+  computed: {
+    ...mapState(Constants.AUTH_STORE, ["isConnected"]),
+  }
 });
 </script>
 <style scoped>
