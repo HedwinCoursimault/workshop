@@ -1,0 +1,2 @@
+DROP TABLE file_;
+DROP TABLE user_;
