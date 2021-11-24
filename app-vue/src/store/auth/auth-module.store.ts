@@ -6,13 +6,15 @@ import {Constants} from "@/constants/Constants";
 interface State {
     isConnected: boolean;
     key: string;
+    token: string;
 }
 
 const authModule = {
     namespaced: true,
     state: () => ({
         isConnected: true,
-        key: ""
+        key: "",
+        token: ""
     }),
     actions: {
         async [AuthActionTypes.TRY_CONNECTION]({commit}: any, auth: any){
@@ -20,6 +22,7 @@ const authModule = {
                 .then((response: any) => {
                     commit(AuthMutationTypes.UPDATE_CONNECITON, true);
                     commit(AuthMutationTypes.UPDATE_KEY, "");
+                    commit(AuthMutationTypes.UPDATE_TOKEN, response);
                 }).catch((error: any) => {
                     commit(AuthMutationTypes.UPDATE_CONNECITON, false);
                     console.error(error)
@@ -32,6 +35,9 @@ const authModule = {
         },
         [AuthMutationTypes.UPDATE_KEY](state: State, key: string){
             state.key = key;
+        },
+        [AuthMutationTypes.UPDATE_TOKEN](state: State, token: string){
+            state.token =`Bearer ${token}`
         }
     }
 }
