@@ -18,10 +18,10 @@ const filesModules: Module<any, any> = {
     ]
   }),
   actions: {
-    async [FilesActionTypes.GET_LIST_NAMES]({ commit }: any): Promise<void> {
+    async [FilesActionTypes.GET_LIST_NAMES]({ commit, rootState }: any): Promise<void> {
         if (Constants.WEB_URL !== ""){
             await axios
-                .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`)
+                .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`, {headers: {'authorization' : rootState.auth.token}})
                 .then((response: any) => {
                     console.log(response);
                     commit(FilesMutationTypes.UPDATE_FILES_NAMES, response);
@@ -32,11 +32,11 @@ const filesModules: Module<any, any> = {
         }
     },
     async [FilesActionTypes.UPLOAD_FILE](
-      { commit },
+      { commit, rootState },
       file: Blob
     ): Promise<void> {
       await axios
-        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, file)
+        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, file, {headers: {'authorization' : rootState.auth.token}})
         .then(() => {
           console.log("success");
         })
@@ -45,11 +45,11 @@ const filesModules: Module<any, any> = {
         });
     },
     async [FilesActionTypes.DOWNLOAD_FILE](
-      { commit },
+      { commit, rootState },
       fileName: string
     ): Promise<void> {
       await axios
-        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${fileName}`)
+        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${fileName}`, {headers: {'authorization' : rootState.auth.token}})
         .then((response: any) => {
           const url = window.URL.createObjectURL(response);
           const a = document.createElement("a");
