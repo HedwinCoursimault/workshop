@@ -5,13 +5,17 @@ import FilesMutationTypes from "@/store/files/files-mutation-types";
 import { Module } from "vuex";
 
 interface State {
-  listFiles: string[];
+  listFiles: any[];
 }
 
 const filesModules: Module<any, any> = {
   namespaced: true,
   state: () => ({
-    listFiles: ["tg tom", "tg hedwin"],
+    listFiles: [
+      { "id": "", "name": "Tg morgan", "type" : "pdf", "date": "29-10-2020", "taille" : "120" },
+      { "id": "", "name": "Tg hedwin", "type" : "png", "date": "03-02-2021", "taille" : "37" },
+      { "id": "", "name": "Rust c de la merde", "type" : "pdf", "date": "13-02-2019" , "taille" : "79"},
+    ]
   }),
   actions: {
     async [FilesActionTypes.GET_LIST_NAMES]({ commit }: any): Promise<void> {

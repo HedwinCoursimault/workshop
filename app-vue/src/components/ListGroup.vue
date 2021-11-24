@@ -1,13 +1,19 @@
 <template>
   <ul class="list-group">
-    <li v-for="(name, index) in listFiles" :key="index" class="list-group-item">
-      <div class="d-flex">
-        <div class="col-8">{{ name }}</div>
+    <div v-if="listFiles.length <= 1">{{listFiles.length}} fichier trouvé</div>
+    <div v-else> {{listFiles.length}} fichiers trouvés</div>
+    <li v-for="(fileItem, index) in listFiles" :key="index" class="list-group-item">
+      <div class="row">
+        <div class="fichierTitle col-10">{{ fileItem.name }}</div>
         <div class="col-2">
-          <button @click="download(name)" type="button" class="btn btn-primary">
-            Télécharger
+          <button @click="download(fileItem.name)" type="button" class="btn btn-primary">
+            <BIconDownload/>
           </button>
         </div>
+      </div>
+      <div class="row">
+        <div class="fichierContent col-9"> Date : {{ fileItem.date }}</div>
+        <div class="fichierContent col-3 contentAtRight"> Taille : {{ fileItem.taille }}</div>
       </div>
     </li>
   </ul>
@@ -18,9 +24,12 @@ import { mapActions, mapState } from "vuex";
 import { Constants } from "@/constants/Constants";
 import { defineComponent } from "vue";
 import FilesActionTypes from "@/store/files/files-action-types";
-
+import { BIconDownload} from 'bootstrap-icons-vue';
 export default defineComponent({
   name: "ListGroup",
+  components: {
+    BIconDownload
+  },
   computed: {
     ...mapState(Constants.FILES_STORE, ["listFiles"]),
   },
@@ -32,3 +41,18 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+.fichierTitle{
+    display: inline-block;
+}
+.fichierButton{
+    display: inline-block;
+}
+.fichierContent{
+  font-size: 10px;
+  display: inline-block;
+}
+.fileAtRight{
+    text-align: right;
+}
+</style>
