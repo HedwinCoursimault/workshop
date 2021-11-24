@@ -29,10 +29,6 @@ export default defineComponent({
     Upload,
     Login
   },
-  async mounted() {
-    await this[FilesActionTypes.GET_LIST_NAMES]();
-    console.log(this.isConnected);
-  },
   methods: {
     ...mapActions(Constants.FILES_STORE, [FilesActionTypes.GET_LIST_NAMES]),
   },

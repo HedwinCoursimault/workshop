@@ -12,12 +12,13 @@ interface State {
 const authModule = {
     namespaced: true,
     state: () => ({
-        isConnected: true,
+        isConnected: false,
         key: "",
         token: ""
     }),
     actions: {
         async [AuthActionTypes.TRY_CONNECTION]({ commit }: any, auth: any) {
+            axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
             await axios.post(`${Constants.WEB_URL}/${Constants.CONNECTION}`, auth)
                 .then((response: any) => {
                     commit(AuthMutationTypes.UPDATE_CONNECITON, true);

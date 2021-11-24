@@ -19,7 +19,6 @@ const filesModules: Module<any, any> = {
   }),
   actions: {
     async [FilesActionTypes.GET_LIST_NAMES]({ commit, rootState }: any): Promise<void> {
-        if (Constants.WEB_URL !== ""){
             await axios
                 .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`, {headers: {'authorization' : rootState.auth.token}})
                 .then((response: any) => {
@@ -29,7 +28,6 @@ const filesModules: Module<any, any> = {
                 .catch((error: any) => {
                     console.error(error);
                 });
-        }
     },
     async [FilesActionTypes.UPLOAD_FILE](
       { commit, rootState },
