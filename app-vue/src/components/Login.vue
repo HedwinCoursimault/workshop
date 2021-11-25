@@ -72,7 +72,7 @@
                 href="#"
                 class="btn btn-primary btn-block py-2"
               >
-                <span class="font-weight-bold">Créer votre compte</span>
+                <span class="font-weight-bold">Se connecter</span>
               </a>
             </div>
 
