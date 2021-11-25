@@ -6,7 +6,7 @@
       <div class="row">
         <div class="fichierTitle col-10">{{ fileItem.name }}</div>
         <div class="col-2">
-          <button @click="download(fileItem.name)" type="button" class="btn btn-primary">
+          <button @click="download(fileItem)" type="button" class="btn btn-primary">
             <BIconDownload/>
           </button>
         </div>
@@ -33,10 +33,13 @@ export default defineComponent({
   computed: {
     ...mapState(Constants.FILES_STORE, ["listFiles"]),
   },
+  mounted() {
+    this[FilesActionTypes.GET_LIST_NAMES]();
+  },
   methods: {
-    ...mapActions(Constants.FILES_STORE, [FilesActionTypes.DOWNLOAD_FILE]),
-    async download(fileName: string) {
-      this[FilesActionTypes.DOWNLOAD_FILE](fileName);
+    ...mapActions(Constants.FILES_STORE, [FilesActionTypes.DOWNLOAD_FILE, FilesActionTypes.GET_LIST_NAMES]),
+    async download(file: any) {
+      this[FilesActionTypes.DOWNLOAD_FILE](file);
     },
   },
 });

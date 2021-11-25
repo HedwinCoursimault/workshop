@@ -22,8 +22,7 @@ const filesModules: Module<any, any> = {
             await axios
                 .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`, {headers: {'authorization' : rootState.auth.token}})
                 .then((response: any) => {
-                    console.log(response);
-                    commit(FilesMutationTypes.UPDATE_FILES_NAMES, response);
+                    commit(FilesMutationTypes.UPDATE_FILES_NAMES, response.data);
                 })
                 .catch((error: any) => {
                     console.error(error);
@@ -33,8 +32,10 @@ const filesModules: Module<any, any> = {
       { commit, rootState },
       file: Blob
     ): Promise<void> {
+        const formData = new FormData();
+        formData.append("file", file);
       await axios
-        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, file, {headers: {'authorization' : rootState.auth.token}})
+        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, formData, {headers: {'authorization' : rootState.auth.token, 'content-type': 'multipart/form-data'}})
         .then(() => {
           console.log("success");
         })
@@ -44,20 +45,16 @@ const filesModules: Module<any, any> = {
     },
     async [FilesActionTypes.DOWNLOAD_FILE](
       { commit, rootState },
-      fileName: string
+      file: any
     ): Promise<void> {
       await axios
-        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${fileName}`, {headers: {'authorization' : rootState.auth.token}})
+        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}})
         .then((response: any) => {
-          const url = window.URL.createObjectURL(response);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = url;
-          // the filename you want
-          a.download = "todo-1.json";
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
+            console.log(response);
+            /*const a = document.createElement("a");
+            a.href = response.data;
+            a.setAttribute("download", file.name);
+            a.click();*/
         })
         .catch((error: any) => {
           console.error(error);

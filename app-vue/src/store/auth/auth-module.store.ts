@@ -23,7 +23,7 @@ const authModule = {
                 .then((response: any) => {
                     commit(AuthMutationTypes.UPDATE_CONNECITON, true);
                     commit(AuthMutationTypes.UPDATE_KEY, "");
-                    commit(AuthMutationTypes.UPDATE_TOKEN, response.token);
+                    commit(AuthMutationTypes.UPDATE_TOKEN, response.data.token);
                 }).catch((error: any) => {
                     commit(AuthMutationTypes.UPDATE_CONNECITON, false);
                     console.error(error)
@@ -37,8 +37,8 @@ const authModule = {
         [AuthMutationTypes.UPDATE_KEY](state: State, key: string) {
             state.key = key;
         },
-        [AuthMutationTypes.UPDATE_TOKEN](state: State, token: string){
-            state.token =`Bearer ${token}`
+        [AuthMutationTypes.UPDATE_TOKEN](state: State, token: string) {
+            state.token = `Bearer ${token}`
         }
     }
 }
