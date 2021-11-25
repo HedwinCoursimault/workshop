@@ -21,7 +21,6 @@ const authModule = {
             axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
             await axios.post(`${Constants.WEB_URL}/${Constants.CONNECTION}`, auth)
                 .then((response: any) => {
-                    console.log(response);
                     commit(AuthMutationTypes.UPDATE_CONNECITON, true);
                     commit(AuthMutationTypes.UPDATE_KEY, "");
                     commit(AuthMutationTypes.UPDATE_TOKEN, response.data.token);
