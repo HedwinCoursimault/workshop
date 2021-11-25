@@ -29,15 +29,16 @@ const filesModules: Module<any, any> = {
                 });
     },
     async [FilesActionTypes.UPLOAD_FILE](
-      { commit, rootState },
-      file: Blob
+      { commit, rootState, dispatch },
+      file: File
     ): Promise<void> {
         const formData = new FormData();
         formData.append("file", file);
+        console.log('file-upload',file);
       await axios
         .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, formData, {headers: {'authorization' : rootState.auth.token, 'content-type': 'multipart/form-data'}})
         .then(() => {
-          console.log("success");
+          dispatch(FilesActionTypes.GET_LIST_NAMES);
         })
         .catch((error: any) => {
           console.error(error);
@@ -51,10 +52,17 @@ const filesModules: Module<any, any> = {
         .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}})
         .then((response: any) => {
             console.log(response);
-            /*const a = document.createElement("a");
-            a.href = response.data;
-            a.setAttribute("download", file.name);
-            a.click();*/
+            const blob = new Blob([response.data], {type: "application/octet-stream"})
+            console.log(blob);
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // the filename you want
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
         })
         .catch((error: any) => {
           console.error(error);
