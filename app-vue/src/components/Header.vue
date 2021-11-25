@@ -1,5 +1,6 @@
 <template>
-  <div class="w-100 bg-primary text-center">
+  <div class="w-100 bg-primary d-flex justify-content-center align-items-center">
+    <img src="../assets/logo.png" alt="" style="max-height:50px">
     <p>RhinoDrive, drive safe</p>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-show="(currentComponent === 'connexion' ? true : false)">
+    <div class="container" v-show="(currentComponent === 'inscription' ? true : false)">
         <div class="row py-5 mt-4 align-items-center">
             <!-- For Demo Purpose -->
             <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
@@ -11,6 +11,27 @@
             <div class="col-md-7 col-lg-6 ml-auto">
                 <form action="#">
                     <div class="row">
+
+                        <!-- First Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="firstName" type="text" name="firstname" placeholder="Prénom" class="form-control bg-white border-left-0 border-md">
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="lastName" type="text" name="lastname" placeholder="Nom" class="form-control bg-white border-left-0 border-md">
+                        </div>
+
                         <!-- Email Address -->
                         <div class="input-group col-lg-12 mb-4">
                             <div class="input-group-prepend">
@@ -30,6 +51,17 @@
                             </div>
                             <input id="password" type="password" name="password" placeholder="Votre mot de passe" class="form-control bg-white border-left-0 border-md" v-model="passwd">
                         </div>
+
+                        <!-- Password Confirmation -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirmez votre mot de passe" class="form-control bg-white border-left-0 border-md">
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="form-group col-lg-12 mx-auto mb-0">
                             <a @click="connection()" href="#" class="btn btn-primary btn-block py-2">
@@ -46,7 +78,7 @@
 
                         <!-- Already Registered -->
                         <div class="text-center w-100">
-                            <p class="text-muted font-weight-bold"> Déjà un compte ? <a @click="swapComponent('connexion')" href="#" class="text-primary ml-2">Inscription</a></p>
+                            <p class="text-muted font-weight-bold"> Déjà un compte ? <a @click="swapComponent('inscription')" href="#" class="text-primary ml-2">Connexion</a></p>
                         </div>
 
                     </div>

@@ -12,7 +12,7 @@ interface State {
 const authModule = {
     namespaced: true,
     state: () => ({
-        isConnected: false,
+        isConnected: true,
         key: "",
         token: ""
     }),

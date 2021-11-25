@@ -15,6 +15,7 @@
   </div>
   <div v-else>
     <Login />
+    <Signin />
   </div>
 </template>
 
@@ -27,6 +28,7 @@ import ListGroup from "@/components/ListGroup.vue";
 import Upload from "@/components/Upload.vue";
 import Login from "@/components/Login.vue";
 import HeaderMain from "@/components/Header.vue";
+import Signin from "@/components/Signin.vue";
 
 export default defineComponent({
   name: "App",
@@ -35,6 +37,7 @@ export default defineComponent({
     Upload,
     Login,
     HeaderMain,
+    Signin
   },
   methods: {
     ...mapActions(Constants.FILES_STORE, [FilesActionTypes.GET_LIST_NAMES]),
