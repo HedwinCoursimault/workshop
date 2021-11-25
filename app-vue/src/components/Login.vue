@@ -31,9 +31,9 @@
                             <input id="password" type="password" name="password" placeholder="Votre mot de passe" class="form-control bg-white border-left-0 border-md" v-model="passwd">
                         </div>
                         <!-- Submit Button -->
-                        <div class="form-group col-lg-12 mx-auto mb-0">
+                        <div class="form-group col-lg-12 mx-auto mb-0 text-center">
                             <a @click="connection()" href="#" class="btn btn-primary btn-block py-2">
-                                <span class="font-weight-bold">Créer votre compte</span>
+                                <span class="font-weight-bold">Entrer</span>
                             </a>
                         </div>
 
@@ -107,7 +107,7 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <div class="form-group col-lg-12 mx-auto mb-0">
+                        <div class="form-group col-lg-12 mx-auto mb-0 text-center">
                             <a @click="connection()" href="#" class="btn btn-primary btn-block py-2">
                                 <span class="font-weight-bold">Créer votre compte</span>
                             </a>
