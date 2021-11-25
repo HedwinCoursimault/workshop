@@ -4,7 +4,7 @@
       <HeaderMain />
       <div id="content" class="d-flex h-100">
         <div id="div-nav" class="col-3">
-          <p class="text-center">Vos fichiers sauvegardés</p>
+          <p class="text-center mt-2">Vos fichiers sauvegardés</p>
           <ListGroup />
         </div>
         <div class="w-100">
@@ -34,7 +34,7 @@ export default defineComponent({
     ListGroup,
     Upload,
     Login,
-    HeaderMain
+    HeaderMain,
   },
   methods: {
     ...mapActions(Constants.FILES_STORE, [FilesActionTypes.GET_LIST_NAMES]),
