@@ -41,6 +41,8 @@ import { Constants } from "@/constants/Constants";
 import { defineComponent } from "vue";
 import FilesActionTypes from "@/store/files/files-action-types";
 import { BIconDownload } from "bootstrap-icons-vue";
+import CryptoJS from 'crypto-js'
+
 export default defineComponent({
   name: "ListGroup",
   components: {

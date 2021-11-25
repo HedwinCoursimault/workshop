@@ -3,6 +3,7 @@ import FilesActionTypes from "@/store/files/files-action-types";
 import { Constants } from "@/constants/Constants";
 import FilesMutationTypes from "@/store/files/files-mutation-types";
 import { Module } from "vuex";
+import crypto from "crypto-js";
 
 interface State {
   listFiles: any[];
@@ -49,20 +50,16 @@ const filesModules: Module<any, any> = {
       file: any
     ): Promise<void> {
       await axios
-        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}})
+        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}, responseType: 'blob'})
         .then((response: any) => {
-            console.log(response);
-            const blob = new Blob([response.data], {type: "application/octet-stream"})
-            console.log(blob);
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            // the filename you want
-            a.download = file.name;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
+            const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            const fileLink = document.createElement('a');
+
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', file.name);
+            document.body.appendChild(fileLink);
+
+            fileLink.click();
         })
         .catch((error: any) => {
           console.error(error);

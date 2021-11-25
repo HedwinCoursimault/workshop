@@ -12,7 +12,7 @@ interface State {
 const authModule = {
     namespaced: true,
     state: () => ({
-        isConnected: true,
+        isConnected: false,
         key: "",
         token: ""
     }),
@@ -28,6 +28,9 @@ const authModule = {
                     commit(AuthMutationTypes.UPDATE_CONNECITON, false);
                     console.error(error)
                 });
+        },
+        [AuthActionTypes.NEW_KEY]({commit}: any, key: string){
+            commit(AuthMutationTypes.UPDATE_KEY, key);
         }
     },
     mutations: {
