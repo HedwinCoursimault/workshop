@@ -5,19 +5,22 @@ import FilesMutationTypes from "@/store/files/files-mutation-types";
 import { Module } from "vuex";
 
 interface State {
-  listFiles: string[];
+  listFiles: any[];
 }
 
 const filesModules: Module<any, any> = {
   namespaced: true,
   state: () => ({
-    listFiles: ["tg tom", "tg hedwin"],
+    listFiles: [
+      { "id": "", "name": "Tg morgan", "type" : "pdf", "date": "29-10-2020", "taille" : "120" },
+      { "id": "", "name": "Tg hedwin", "type" : "png", "date": "03-02-2021", "taille" : "37" },
+      { "id": "", "name": "Rust c de la merde", "type" : "pdf", "date": "13-02-2019" , "taille" : "79"},
+    ]
   }),
   actions: {
-    async [FilesActionTypes.GET_LIST_NAMES]({ commit }: any): Promise<void> {
-        if (Constants.WEB_URL !== ""){
+    async [FilesActionTypes.GET_LIST_NAMES]({ commit, rootState }: any): Promise<void> {
             await axios
-                .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`)
+                .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`, {headers: {'authorization' : rootState.auth.token}})
                 .then((response: any) => {
                     console.log(response);
                     commit(FilesMutationTypes.UPDATE_FILES_NAMES, response);
@@ -25,14 +28,13 @@ const filesModules: Module<any, any> = {
                 .catch((error: any) => {
                     console.error(error);
                 });
-        }
     },
     async [FilesActionTypes.UPLOAD_FILE](
-      { commit },
+      { commit, rootState },
       file: Blob
     ): Promise<void> {
       await axios
-        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, file)
+        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, file, {headers: {'authorization' : rootState.auth.token}})
         .then(() => {
           console.log("success");
         })
@@ -41,11 +43,11 @@ const filesModules: Module<any, any> = {
         });
     },
     async [FilesActionTypes.DOWNLOAD_FILE](
-      { commit },
+      { commit, rootState },
       fileName: string
     ): Promise<void> {
       await axios
-        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${fileName}`)
+        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${fileName}`, {headers: {'authorization' : rootState.auth.token}})
         .then((response: any) => {
           const url = window.URL.createObjectURL(response);
           const a = document.createElement("a");
