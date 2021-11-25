@@ -1,7 +1,17 @@
 <template>
-  <div class="w-100 bg-primary d-flex justify-content-center align-items-center">
-    <img src="../assets/logo.png" alt="" style="max-height:50px">
-    <p>RhinoDrive, drive safe</p>
+  <div
+    class="
+      w-100
+      bg-primary
+      d-flex
+      justify-content-left
+      align-items-center
+      pb-2
+      pt-2
+    "
+  >
+    <img src="../assets/rhino_alt.png" alt="" style="max-height: 50px" />
+    <p class="align-middle mb-0 mt-0">RhinoDrive, drive safe</p>
   </div>
 </template>
 

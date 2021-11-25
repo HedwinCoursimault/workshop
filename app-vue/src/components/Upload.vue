@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 h-100 text-center d-flex flex-column">
+  <div class="w-100 h-100 text-center d-flex flex-column mt-2">
     <div class="form-group m-2">
       <input type="file" id="formNomFichier" @change="onFileChanged" />
     </div>

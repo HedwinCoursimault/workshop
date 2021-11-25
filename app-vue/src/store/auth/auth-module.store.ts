@@ -38,8 +38,8 @@ const authModule = {
         [AuthMutationTypes.UPDATE_KEY](state: State, key: string) {
             state.key = key;
         },
-        [AuthMutationTypes.UPDATE_TOKEN](state: State, token: string){
-            state.token =`Bearer ${token}`
+        [AuthMutationTypes.UPDATE_TOKEN](state: State, token: string) {
+            state.token = `Bearer ${token}`
         }
     }
 }
