@@ -11,7 +11,9 @@
     "
   >
     <img src="../assets/rhino_alt.png" alt="" style="max-height: 50px" />
-    <p class="align-middle mb-0 mt-0">RhinoDrive, drive safe</p>
+    <p class="align-middle mb-0 mt-0" style="font-family: 'Oswald', sans-serif">
+      RhinoDrive, drive safe
+    </p>
   </div>
 </template>
 
