@@ -13,6 +13,7 @@ mod filters;
 mod handlers;
 mod model;
 mod routes;
+mod auth;
 
 #[tokio::main]
 async fn main() {
@@ -26,10 +27,14 @@ async fn main() {
     let port = env.app_port();
 
     let router = routes::upload(env.clone())
+        .or(routes::file_list_by_uploader(env.clone()))
         .or(routes::download(env.clone()))
         .or(routes::healthz())
-        .recover(handle_rejection);
-    println!("Server started at localhost:8080");
+        .or(routes::login(env.clone()))
+        .or(routes::create_account(env))
+        .recover(handle_rejection)
+        .with(get_cors());
+    println!("Server started at localhost:{}", &port);
     warp::serve(router).run(([0, 0, 0, 0], port)).await;
 }
 
@@ -47,4 +52,22 @@ async fn handle_rejection(err: Rejection) -> std::result::Result<impl Reply, Inf
     };
 
     Ok(warp::reply::with_status(message, code))
+}
+
+pub fn get_cors() -> warp::cors::Builder {
+    warp::cors()
+        .allow_any_origin()
+        .allow_headers(vec![
+            "Accept",
+            "User-Agent",
+            "Sec-Fetch-Mode",
+            "Referer",
+            "Origin",
+            "Access-Control-Request-Method",
+            "Access-Control-Request-Headers",
+            "access-control-allow-origin",
+            "Content-Type",
+            "Authorization",
+        ])
+        .allow_methods(vec!["POST", "GET"])
 }
