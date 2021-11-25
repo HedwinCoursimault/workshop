@@ -1,19 +1,35 @@
 <template>
   <ul class="list-group">
-    <div v-if="listFiles.length <= 1">{{listFiles.length}} fichier trouvé</div>
-    <div v-else> {{listFiles.length}} fichiers trouvés</div>
-    <li v-for="(fileItem, index) in listFiles" :key="index" class="list-group-item">
+    <div v-if="listFiles.length <= 1">
+      <p class="mt-0 mb-0">{{ listFiles.length }} fichier trouvé</p>
+    </div>
+    <div v-else>
+      <p class="mt-0 mb-0">{{ listFiles.length }} fichiers trouvés</p>
+    </div>
+    <li
+      v-for="(fileItem, index) in listFiles"
+      :key="index"
+      class="list-group-item"
+    >
       <div class="row">
         <div class="fichierTitle col-10">{{ fileItem.name }}</div>
         <div class="col-2">
-          <button @click="download(fileItem)" type="button" class="btn btn-primary">
-            <BIconDownload/>
+          <button
+            @click="download(fileItem)"
+            type="button"
+            class="btn btn-primary"
+          >
+            <BIconDownload />
           </button>
         </div>
       </div>
       <div class="row">
-        <div class="fichierContent col-9"> Date : {{ fileItem.date }}</div>
-        <div class="fichierContent col-3 contentAtRight"> Taille : {{ fileItem.taille }}</div>
+        <div class="fichierContent col-9">
+          <p class="mt-0 mb-0">Date : {{ fileItem.date }}</p>
+        </div>
+        <div class="fichierContent col-3 contentAtRight">
+          <p class="mt-0 mb-0">Taille : {{ fileItem.taille }}</p>
+        </div>
       </div>
     </li>
   </ul>
@@ -24,11 +40,11 @@ import { mapActions, mapState } from "vuex";
 import { Constants } from "@/constants/Constants";
 import { defineComponent } from "vue";
 import FilesActionTypes from "@/store/files/files-action-types";
-import { BIconDownload} from 'bootstrap-icons-vue';
+import { BIconDownload } from "bootstrap-icons-vue";
 export default defineComponent({
   name: "ListGroup",
   components: {
-    BIconDownload
+    BIconDownload,
   },
   computed: {
     ...mapState(Constants.FILES_STORE, ["listFiles"]),
@@ -37,7 +53,10 @@ export default defineComponent({
     this[FilesActionTypes.GET_LIST_NAMES]();
   },
   methods: {
-    ...mapActions(Constants.FILES_STORE, [FilesActionTypes.DOWNLOAD_FILE, FilesActionTypes.GET_LIST_NAMES]),
+    ...mapActions(Constants.FILES_STORE, [
+      FilesActionTypes.DOWNLOAD_FILE,
+      FilesActionTypes.GET_LIST_NAMES,
+    ]),
     async download(file: any) {
       this[FilesActionTypes.DOWNLOAD_FILE](file);
     },
@@ -45,17 +64,17 @@ export default defineComponent({
 });
 </script>
 <style>
-.fichierTitle{
-    display: inline-block;
+.fichierTitle {
+  display: inline-block;
 }
-.fichierButton{
-    display: inline-block;
+.fichierButton {
+  display: inline-block;
 }
-.fichierContent{
+.fichierContent {
   font-size: 10px;
   display: inline-block;
 }
-.fileAtRight{
-    text-align: right;
+.fileAtRight {
+  text-align: right;
 }
 </style>
