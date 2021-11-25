@@ -33,8 +33,11 @@ export default defineComponent({
   computed: {
     ...mapState(Constants.FILES_STORE, ["listFiles"]),
   },
+  mounted() {
+    this[FilesActionTypes.GET_LIST_NAMES]();
+  },
   methods: {
-    ...mapActions(Constants.FILES_STORE, [FilesActionTypes.DOWNLOAD_FILE]),
+    ...mapActions(Constants.FILES_STORE, [FilesActionTypes.DOWNLOAD_FILE, FilesActionTypes.GET_LIST_NAMES]),
     async download(fileName: string) {
       this[FilesActionTypes.DOWNLOAD_FILE](fileName);
     },

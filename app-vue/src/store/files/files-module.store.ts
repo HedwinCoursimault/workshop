@@ -19,11 +19,12 @@ const filesModules: Module<any, any> = {
   }),
   actions: {
     async [FilesActionTypes.GET_LIST_NAMES]({ commit, rootState }: any): Promise<void> {
+        console.log(rootState);
             await axios
                 .get(`${Constants.WEB_URL}/${Constants.FILES_NAMES}`, {headers: {'authorization' : rootState.auth.token}})
                 .then((response: any) => {
                     console.log(response);
-                    commit(FilesMutationTypes.UPDATE_FILES_NAMES, response);
+                    commit(FilesMutationTypes.UPDATE_FILES_NAMES, response.data);
                 })
                 .catch((error: any) => {
                     console.error(error);
@@ -33,8 +34,10 @@ const filesModules: Module<any, any> = {
       { commit, rootState },
       file: Blob
     ): Promise<void> {
+        const formData = new FormData();
+        formData.append("file", file);
       await axios
-        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, file, {headers: {'authorization' : rootState.auth.token}})
+        .post(`${Constants.WEB_URL}/${Constants.UPLOAD}`, formData, {headers: {'authorization' : rootState.auth.token, 'content-type': 'multipart/form-data'}})
         .then(() => {
           console.log("success");
         })
@@ -49,7 +52,7 @@ const filesModules: Module<any, any> = {
       await axios
         .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${fileName}`, {headers: {'authorization' : rootState.auth.token}})
         .then((response: any) => {
-          const url = window.URL.createObjectURL(response);
+          const url = window.URL.createObjectURL(response.data);
           const a = document.createElement("a");
           a.style.display = "none";
           a.href = url;
