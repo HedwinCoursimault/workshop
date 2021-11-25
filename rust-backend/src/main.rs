@@ -27,8 +27,8 @@ async fn main() {
     let port = env.app_port();
 
     let router = routes::upload(env.clone())
-        .or(routes::file_list_by_uploader(env.clone()))
         .or(routes::download(env.clone()))
+        .or(routes::file_list_by_uploader(env.clone()))
         .or(routes::healthz())
         .or(routes::login(env.clone()))
         .or(routes::create_account(env))
