@@ -28,6 +28,15 @@ pub async fn get_file_by_name(conn: &PgPool, name: &str) -> Result<Option<File>,
         .await
 }
 
+pub async fn get_files_by_uploader(
+    conn: &PgPool,
+    uploader_id: &Uuid,
+) -> Result<Vec<File>, sqlx::Error> {
+    query_as!(File, "SELECT * FROM file_ WHERE uploader = $1", uploader_id)
+        .fetch_all(conn)
+        .await
+}
+
 pub async fn insert_file(conn: &PgPool, new: &FileInsertable<'_>) -> Result<File, sqlx::Error> {
     query_as!(
         File,
@@ -43,7 +52,8 @@ pub async fn insert_file(conn: &PgPool, new: &FileInsertable<'_>) -> Result<File
 
 pub async fn bump_download_counter(conn: &PgPool, file_id: &Uuid) -> Result<i32, sqlx::Error> {
     let result = sqlx::query!(
-        "UPDATE file_ set times_downloaded = times_downloaded + 1 RETURNING times_downloaded"
+        "UPDATE file_ set times_downloaded = times_downloaded + 1  WHERE id = $1 RETURNING times_downloaded",
+        &file_id
     )
     .fetch_one(conn)
     .await?;
