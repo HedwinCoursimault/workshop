@@ -1,14 +1,23 @@
 <template>
-  <div class="w-100 h-100 text-center d-flex flex-column mt-2 justify-content-center">
+  <div
+    class="w-100 h-100 text-center d-flex flex-column justify-content-center"
+  >
     <div class="form-group m-2">
       <input type="file" id="formNomFichier" @change="onFileChanged" />
     </div>
     <div class="w-100">
+      <div style="margin: 10px">
+        <input
+          type="text"
+          placeholder="Clé de chiffrement"
+          v-model="secretKey"
+          @change="onKeyChange"
+        />
+      </div>
       <button type="submit" class="btn w-25 btn-primary" @click="upload">
         <span class="glyphicon glyphicon-upload"></span> Upload
       </button>
     </div>
-    <input type="text" v-model="secretKey" @change="onKeyChange" />
   </div>
 </template>
 
@@ -31,14 +40,14 @@ export default defineComponent({
     onFileChanged(event: any) {
       this.file = event.target.files[0];
     },
-    onKeyChange(){
+    onKeyChange() {
       this[AuthActionTypes.NEW_KEY](this.secretKey);
-    }
+    },
   },
   data() {
     return {
       file: "",
-      secretKey: ""
+      secretKey: "",
     };
   },
 });

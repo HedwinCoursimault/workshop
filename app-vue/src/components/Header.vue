@@ -10,8 +10,11 @@
       pt-2
     "
   >
-    <img src="../assets/rhino_alt.png" alt="" style="max-height: 50px" />
-    <p class="align-middle mb-0 mt-0" style="font-family: 'Oswald', sans-serif">
+    <img src="../assets/rhino_alt.png" alt="" style="max-height: 80px" />
+    <p
+      class="align-middle mb-0 mt-0 text-white display-5"
+      style="font-family: 'Oswald', sans-serif"
+    >
       RhinoDrive, drive safe
     </p>
   </div>
