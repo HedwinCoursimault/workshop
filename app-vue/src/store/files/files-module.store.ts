@@ -49,21 +49,39 @@ const filesModules: Module<any, any> = {
       { commit, rootState },
       file: any
     ): Promise<void> {
-      await axios
-        .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}, responseType: 'blob'})
-        .then((response: any) => {
-            const fileURL = window.URL.createObjectURL(new Blob([response.data]));
-            const fileLink = document.createElement('a');
+        if (rootState.auth.key.length === 4){
+            await axios
+                .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}, responseType:'blob'})
+                .then((response: any) => {
+                    const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                    const fileLink = document.createElement('a');
 
-            fileLink.href = fileURL;
-            fileLink.setAttribute('download', file.name);
-            document.body.appendChild(fileLink);
+                    fileLink.href = fileURL;
+                    fileLink.setAttribute('download', file.name);
+                    document.body.appendChild(fileLink);
 
-            fileLink.click();
-        })
-        .catch((error: any) => {
-          console.error(error);
-        });
+                    fileLink.click();
+                })
+                .catch((error: any) => {
+                    console.error(error);
+                });
+        }else{
+            await axios
+                .get(`${Constants.WEB_URL}/${Constants.DOWNLOAD}/${file.id}`, {headers: {'authorization' : rootState.auth.token}})
+                .then((response: any) => {
+                    const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                    const fileLink = document.createElement('a');
+
+                    fileLink.href = fileURL;
+                    fileLink.setAttribute('download', file.name);
+                    document.body.appendChild(fileLink);
+
+                    fileLink.click();
+                })
+                .catch((error: any) => {
+                    console.error(error);
+                });
+        }
     },
   },
   mutations: {
